@@ -15,6 +15,9 @@ class Bibliotheques(models.Model):
     site_web = models.TextField(db_column='Site web', blank=True, null=True)
     telephone = models.TextField(db_column='Telephone', blank=True, null=True)
 
+    def __str__(self):
+        return f"{self.nom} \n {self.rue}  {self.commune}  {self.cp} \n {self.heures_d_ouverture}\n {self.services_proposes} "
+
     class Meta:
         managed = False
         db_table = 'bibliotheques'
@@ -27,6 +30,9 @@ class Coworking(models.Model):
     ville = models.TextField(db_column='VILLE', blank=True, null=True)
     web = models.TextField(db_column='WEB', blank=True, null=True)
     coordonnees = models.TextField(db_column='COORDONNEES', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.nom} \n {self.adresse}  {self.cp} \n {self.web} "
 
     class Meta:
         managed = False
@@ -42,6 +48,8 @@ class Metro(models.Model):
     commune_nom = models.TextField(db_column='Commune nom', blank=True, null=True)
     commune_code_insee = models.IntegerField(db_column='Commune code Insee', blank=True, null=True)
 
+    def __str__(self):
+        return self.libelle_station
     class Meta:
         managed = False
         db_table = 'metro'
@@ -62,6 +70,8 @@ class Parcs(models.Model):
         managed = False
         db_table = 'parcs'
 
+    def __str__(self):
+        return f"{self.nom_de_lespace_vert} \n {self.adresse}  {self.code_postal} "
 
 class Resto(models.Model):
     nom = models.TextField(db_column='Nom', blank=True, null=True)
@@ -79,6 +89,8 @@ class Resto(models.Model):
     osm_point = models.TextField(db_column='OSM_Point', blank=True, null=True)
     osm_url = models.TextField(db_column='OSM_URL', blank=True, null=True)
 
+    def __str__(self):
+        return f"{self.nom} \n {self.type}  {self.cuisine} \n {self.heures_ouverture}\n {self.site_web} \n {self.telephone} "
     class Meta:
         managed = False
         db_table = 'resto'
