@@ -1,6 +1,4 @@
 from django.db import models
-
-
 class Bibliotheques(models.Model):
     nom = models.TextField(db_column='Nom', blank=True, null=True)
     rue = models.TextField(db_column='Rue', blank=True, null=True)
@@ -94,3 +92,12 @@ class Resto(models.Model):
     class Meta:
         managed = False
         db_table = 'resto'
+
+class StationLieu(models.Model):
+    station = models.ForeignKey('Metro', on_delete=models.CASCADE, related_name='lieux_proches')
+    lieu_type = models.CharField(max_length=50)  # Type de lieu : resto, biblio, parc, coworking
+    lieu_id = models.IntegerField()  # ID du lieu dans sa table respective
+
+    class Meta:
+        unique_together = ('station', 'lieu_type', 'lieu_id')
+        db_table = 'station_lieu'

@@ -80,7 +80,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'alicyapearl_bdds5',
-        'USER' : '390464_lab',
+        'USER' : '390464',
         'PASSWORD' : BDD_MDP,
         'HOST' : 'mysql-alicyapearl.alwaysdata.net',
         'PORT' : '3306',
