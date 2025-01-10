@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aDeuxPas - Accueil</title>
+    <!-- Inclusion du CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+</head>
+<body>
+    <header>
+        <div class="header-content">
+         <img src="../static/images/Adeuxpas.png" alt="Paris" class="img-fluid" width="300" height="300"/>
+        <h1></h1>
+        <p>Explorez Paris par ligne de métro et découvrez ses merveilles !</p>
+          <nav class="main-nav">
+                <div class="menu-burger">
+                    <div class="burger-icon" onclick="toggleMenu('activites-menu')">
+                        &#9776; Activités
+                    </div>
+                    <ul id="activites-menu" class="dropdown-menu">
+                        <li><a href="#">Restaurant</a></li>
+                        <li><a href="#">Bibliothèque</a></li>
+                        <li><a href="#">Parc</a></li>
+                        <li><a href="#">Coworking</a></li>
+                    </ul>
+                </div>
+
+                <div class="menu-burger">
+                    <div class="burger-icon" onclick="toggleMenu('metro-menu')">
+                        &#9776; Lignes de Métro
+                    </div>
+                    <ul id="metro-menu" class="dropdown-menu">
+                         {% for line in range|slice:":14" %}
+                        <li><a href="#">Ligne {{ line }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+
+
+
+            <section class="activity-cards">
+            <div class="card" style="background-image: url('/static/images/restaurant.jpeg');">
+                <div class="hover-text">
+                    <p>Découvrez les Restaurants</p>
+                    <span>→</span>
+                </div>
+            </div>
+            <div class="card" style="background-image: url('/static/images/biblio.jpeg');">
+                <div class="hover-text">
+                    <p>Découvrez les Bibliothèques</p>
+                    <span>→</span>
+                </div>
+            </div>
+            <div class="card" style="background-image: url('/static/images/parcs.jpeg');">
+                <div class="hover-text">
+                    <p>Découvrez les Parcs</p>
+                    <span>→</span>
+                </div>
+            </div>
+            <div class="card" style="background-image: url('/static/images/coworking.jpeg');">
+                <div class="hover-text">
+                    <p>Découvrez les Espaces de Coworking</p>
+                    <span>→</span>
+                </div>
+            </div>
+        </section>
+    <footer>
+        © 2025 aDeuxPas - Tous droits réservés
+    </footer>
+      <script>
+        function toggleMenu(menuId) {
+            const menu = document.getElementById(menuId);
+            menu.classList.toggle('visible');
+        }
+    </script>
+</body>
+</html>
