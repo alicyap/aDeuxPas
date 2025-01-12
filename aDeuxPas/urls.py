@@ -22,5 +22,8 @@ from ADP import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.accueil, name='accueil'),  # Page d'accueil
+    #path('', views.accueil, name='accueil'),  # Page d'accueil  # Page de la carte
+    path('map/', views.map_view, name='map_view'), # Map.html
+    path('line/<int:line_id>/', views.get_line_data, name='line_data'),
+    path('get-lines/', views.get_lines, name='get_lines'),
 ]

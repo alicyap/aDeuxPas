@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Deux Pas</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <h1>Carte des activités à proximité des lignes de métro</h1>
+    <div id="map" style="height: 500px;"></div>
+    <select id="line-filter">
+    <option value="" selected disabled>Choisissez une ligne de métro</option>
+    </select>
+    <script src="{% static 'js/map.js' %}"></script>
+</body>
+</html>
