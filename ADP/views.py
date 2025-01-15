@@ -8,34 +8,28 @@ from geopy.distance import geodesic
 
 
 def accueil(request):
-    # Liste des types d'activités pour le menu déroulant
-    activites = ["Bibliothèque", "Parc", "Restaurant", "Coworking"]
-    context = {
-        'activites': activites,
-        'image_paris': 'aDeuxPas/static/images/image_paris.jpeg',  # Chemin vers ton image
-    }
-    return render(request, 'aDeuxPas/accueil.html', context)
-from django.shortcuts import render
+    return render(request, 'accueil.html')
 
 # Create your views here.
 def map_view(request):
-    return render(request, 'map.html')  # Le chemin relatif vers ton fichier HTML
+    return render(request, 'map.html')
 
 def get_lines(request):
-    # Récupère les numéros de ligne distincts
     lines = Metro.objects.values_list('libelle_line', flat=True).distinct()
-    # Tri dans l'ordre croissant
-    lines = sorted(filter(None, lines))  # Retire les valeurs nulles ou None
+    lines = sorted(filter(None, lines))
     return JsonResponse({"lines": [f"Ligne {line}" for line in lines]})
 
 
 def get_line_data(request, line_id):
+    proximity = request.GET.get('proximity', '500m')  # Valeur par défaut = 500m
+    distance_limit = int(proximity.replace('m', '')) / 1000 # Convertit en kilomètres
+
     stations = Metro.objects.filter(libelle_line=line_id)
     lieux_data = {
-        "bibliotheques": Bibliotheques.objects.all(),
-        "coworking": Coworking.objects.all(),
-        "parcs": Parcs.objects.all(),
-        "restos": Resto.objects.all(),
+        "Bibliothèque": Bibliotheques.objects.all(),
+        "Coworking": Coworking.objects.all(),
+        "Parc": Parcs.objects.all(),
+        "Restaurant": Resto.objects.all(),
     }
 
     result = {"stations": [], "lieux": []}
@@ -60,7 +54,7 @@ def get_line_data(request, line_id):
                     continue
 
                 distance = haversine(lat, lon, lieu_lat, lieu_lon)
-                if distance <= 0.5:
+                if distance <= distance_limit:
                     result["lieux"].append({
                         "type": lieu_type,
                         "name": lieu.nom,

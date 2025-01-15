@@ -7,14 +7,59 @@
     <title>A Deux Pas</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
 </head>
 <body>
-    <h1>Carte des activités à proximité des lignes de métro</h1>
-    <div id="map" style="height: 500px;"></div>
-    <select id="line-filter">
-    <option value="" selected disabled>Choisissez une ligne de métro</option>
-    </select>
-    <script src="{% static 'js/map.js' %}"></script>
+<div class="left-column">
+    <div class="dropdown-wrapper">
+        <div class="dropdown-container">
+            <select id="activity-filter">
+                <option value="" selected disabled>Type d'activité</option>
+                <option value="Restaurant">Restaurant</option>
+                <option value="Bibliothèque">Bibliothèque</option>
+                <option value="Parc">Parc</option>
+                <option value="Coworking">Coworking</option>
+            </select>
+        </div>
+
+        <div class="dropdown-container">
+            <select id="line-filter">
+                <option value="" selected disabled>Métro</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="radio-container">
+        <div class="radio-title">Rayon de proximité :</div>
+        <label>
+            <input type="radio" name="proximity" value="500m"> 500m
+        </label>
+        <label>
+            <input type="radio" name="proximity" value="400m"> 400m
+        </label>
+        <label>
+            <input type="radio" name="proximity" value="300m"> 300m
+        </label>
+        <label>
+            <input type="radio" name="proximity" value="200m"> 200m
+        </label>
+        <label>
+            <input type="radio" name="proximity" value="100m"> 100m
+        </label>
+    </div>
+</div>
+
+<div class="right-column">
+    <h2>Carte des activités à proximité des lignes de métro</h2>
+    <div id="map"></div>
+</div>
+
+<script src="{% static 'js/map.js' %}"></script>
+
+<footer>
+    © 2025 aDeuxPas - Tous droits réservés
+</footer>
 </body>
 </html>

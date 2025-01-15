@@ -1,87 +1,69 @@
 /* Style général de la page */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
 body {
-    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: row;
     margin: 0;
-    padding: 0;
-    background: linear-gradient(to right, #b6bfca, #d8bfa3);
+    font-family: 'Poppins', Arial, sans-serif; /* Application de Poppins */
+    background-color: #f4f5f7;
     color: #333;
 }
 
-/* Header */
+/* Style pour l'header avec l'image en fond */
 header {
-    background: linear-gradient(to right, #b6bfca, #d8bfa3);
-    color: #3e2e21;
-    text-align: center;
-    padding: 20px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url('/static/images/metro.jpeg');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Menu déroulant */
-select {
-    display: block;
-    margin: 20px auto;
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid #d8bfa3;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #333;
-    width: 50%;
-    text-align: center;
-}
-/* Menu burger */
-.menu-burger {
-    margin: 10px 20px;
-    display: inline-block;
-    position: relative;
-}
-
-.burger-icon {
-    font-size: 18px;
-    cursor: pointer;
-    color: #3e2e21;
-    padding: 10px;
-    border: 2px solid #d8bfa3;
-    border-radius: 5px;
-    background: #b6bfca;
-    text-align: center;
-}
-
-.dropdown-menu {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    background: #f7f3f0;
-    border: 1px solid #d8bfa3;
-    border-radius: 5px;
-    display: none;
+/* Contenu du header */
+.header-content {
     position: absolute;
-    top: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    padding: 20px;
+    z-index: 2; /* Place le texte au-dessus du rectangle */
+}
+
+/* Rectangle transparent derrière le contenu */
+.header-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
     left: 0;
-    z-index: 1000;
-    width: 200px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(50, 50, 50, 0.6);
+    border-radius: 8px;
+    z-index: 1; /* Place le rectangle derrière le texte */
+    pointer-events: none;
 }
 
-.dropdown-menu.visible {
-    display: block;
+/* Titre dans le header */
+header h1 {
+    font-size: 3rem;
+    margin: 0;
+    font-weight: 700;
+    z-index: 2;
+    position: relative;
 }
 
-.dropdown-menu li {
-    border-bottom: 1px solid #d8bfa3;
+/* Description dans le header */
+header p {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    z-index: 2;
+    position: relative;
 }
 
-.dropdown-menu li a {
-    text-decoration: none;
-    display: block;
-    padding: 10px;
-    color: #3e2e21;
-    font-size: 16px;
-}
-
-.dropdown-menu li a:hover {
-    background: #c4d2e8;
-}
 
 /* Cartes d'activité */
 .activity-cards {
@@ -163,7 +145,141 @@ button:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Pied de page */
+/* Page map */
+.left-column {
+    width: 30%;
+    padding: 20px;
+    background: #ffffff;
+    border-right: 2px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.dropdown-wrapper, .radio-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.dropdown-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.dropdown-container select {
+    appearance: none;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px 15px 10px 40px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Poppins', Arial, sans-serif; /* Appliqué à la liste déroulante */
+    cursor: pointer;
+    width: 100%;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.dropdown-container select:hover, .dropdown-container select:focus {
+    border-color: #6200ea;
+    box-shadow: 0 0 6px rgba(98, 0, 234, 0.3);
+}
+
+.dropdown-container::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%236200ea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.divider {
+    border-bottom: 2px dashed #ddd;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.radio-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.radio-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #6200ea;
+    text-align: center;
+    font-family: 'Poppins', Arial, sans-serif; /* Appliqué à la radio-title */
+}
+
+.radio-container label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-family: 'Poppins', Arial, sans-serif; /* Appliqué au label */
+}
+
+.radio-container input[type="radio"] {
+    margin-right: 10px;
+}
+
+.radio-container label:hover {
+    color: #6200ea;
+}
+
+.right-column {
+    width: 70%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f5f7;
+}
+
+h2 {
+    margin: 0 0 20px;
+    font-size: 26px;
+    color: #444;
+    text-align: center;
+    font-family: 'Poppins', Arial, sans-serif; /* Appliqué au h1 */
+}
+
+h1 {
+    margin: 0 0 20px;
+    font-size: 26px;
+    color:  #6eca97;
+    text-align: center;
+    font-family: 'Poppins', Arial, sans-serif; /* Appliqué au h1 */
+}
+
+#map {
+    flex: 1;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 80vh;
+    margin-bottom: 40px;
+}
+
+
+.dropdown-container select:hover,
+.radio-container label:hover {
+    color: #6200ea;
+}
+
+/* Pied de page*/
 footer {
     text-align: center;
     padding: 10px;
@@ -173,4 +289,7 @@ footer {
     bottom: 0;
     width: 100%;
     font-size: 14px;
+
 }
+
+
