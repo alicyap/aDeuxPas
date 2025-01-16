@@ -4,7 +4,6 @@ from django.http import JsonResponse
 from ADP.models import Metro, Bibliotheques, Coworking, Parcs, Resto
 from ADP.utils import parse_coordinates, haversine
 
-from geopy.distance import geodesic
 
 
 def accueil(request):
