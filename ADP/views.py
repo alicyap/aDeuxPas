@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.db.models import Q
 
 from ADP.models import Metro, Bibliotheques, Coworking, Parcs, Resto
 from ADP.utils import parse_coordinates, haversine
@@ -34,7 +35,7 @@ def get_line_data(request, line_id):
         "Bibliothèque": Bibliotheques.objects.all(),
         "Coworking": Coworking.objects.all(),
         "Parc": Parcs.objects.all(),
-        "Restaurant": Resto.objects.all(),
+        "Restaurant": Resto.objects.filter(Q(type="Restaurant") | Q(type="Fast Food") | Q(type="Food Court")).all(),
     }
 
     result = {"stations": [], "lieux": []}

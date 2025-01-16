@@ -147,8 +147,9 @@ button:hover {
 
 /* Page map */
 .left-column {
+    flex: 1;
+    padding: 10px;
     width: 30%;
-    padding: 20px;
     background: #ffffff;
     border-right: 2px solid #e0e0e0;
     display: flex;
@@ -241,8 +242,9 @@ button:hover {
 }
 
 .right-column {
+    flex: 3;
+    padding: 10px;
     width: 70%;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     background-color: #f4f5f7;
@@ -253,7 +255,7 @@ h2 {
     font-size: 26px;
     color: #444;
     text-align: center;
-    font-family: 'Poppins', Arial, sans-serif; /* Appliqué au h1 */
+    font-family: 'Poppins', Arial, sans-serif;
 }
 
 h1 {
@@ -261,7 +263,7 @@ h1 {
     font-size: 26px;
     color:  #6eca97;
     text-align: center;
-    font-family: 'Poppins', Arial, sans-serif; /* Appliqué au h1 */
+    font-family: 'Poppins', Arial, sans-serif;
 }
 
 #map {
@@ -289,7 +291,7 @@ footer {
     bottom: 0;
     width: 100%;
     font-size: 14px;
-
+    z-index: 2;
 }
 
 
