@@ -12,8 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const stationFilter = document.getElementById('station-filter');
     const activityFilter = document.getElementById('activity-filter');
     const proximityRadios = document.getElementsByName('proximity');  // Récupération des radios
-    const lieuxContainer = document.getElementById('lieux-container');
-    const lieuxCount = document.getElementById('lieux-count');
 
 
     function getSelectedProximity() {
@@ -49,14 +47,14 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(`/line/${lineId}/stations/`)
             .then(response => response.json())
             .then(data => {
-                stationFilter.innerHTML = '<option value="" selected disabled>Station de métro</option>';
+                stationFilter.innerHTML = '<option value="">Station de métro</option>';
                 data.stations.forEach(station => {
                     const option = document.createElement('option');
                     option.value = station.name;
                     option.textContent = station.name;
                     stationFilter.appendChild(option);
                 });
-                stationFilter.disabled = false;
+                //stationFilter.disabled = false;
             });
     }
 

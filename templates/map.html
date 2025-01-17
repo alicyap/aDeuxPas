@@ -1,20 +1,29 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Deux Pas</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}aDeuxPas - Carte{% endblock %}
+{% block content %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>aDeuxPas - Carte</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    <body>
     <div class="left-column">
+        <a href="{% url 'accueil' %}" class="home-icon">
+            <i class="fas fa-home"></i>
+        </a>
+        
         <div class="dropdown-wrapper">
             <div class="dropdown-container">
                 <select id="activity-filter">
-                    <option value="" selected disabled>Type d'activité</option>
+                    <option value="">Type d'activité</option>
                     <option value="Restaurant">Restaurant</option>
                     <option value="Bibliothèque">Bibliothèque</option>
                     <option value="Parc">Parc</option>
@@ -30,7 +39,7 @@
 
             <div class="dropdown-container">
                 <select id="station-filter">
-                    <option value="" selected disabled>Station de métro</option>
+                    <option value="">Station de métro</option>
                 </select>
             </div>
 
@@ -63,10 +72,11 @@
         <div id="map"></div>
     </div>
 
-<script src="{% static 'js/map.js' %}"></script>
+    <script src="{% static 'js/map.js' %}"></script>
 
-<footer>
-    © 2025 aDeuxPas - Tous droits réservés
-</footer>
-</body>
+    <footer>
+        © 2025 aDeuxPas - Tous droits réservés
+    </footer>
+    </body>
+{% endblock %}
 </html>

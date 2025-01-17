@@ -419,6 +419,20 @@ h3{
 }
 /* Mode sombre */
 body.dark-mode {
+    /*Page map*/
+    .left-column {
+        background-color: rgba(50, 50, 50, 0.6);
+        color: #ffffff;
+    }
+    .right-column {
+        background-color: #09090e;
+        color: #ffffff;
+    }
+    h2 {
+        color: #ffffff;
+    }
+
+    /*Général*/
     background-color: #09090e;
     color: #ffffff;
 }
@@ -450,5 +464,18 @@ body.dark-mode {
     cursor: pointer;
 }
 
+.home-icon {
+    position: absolute; /* Pour positionner l'icône précisément */
+    top: 10px; /* Distance depuis le haut */
+    left: 10px; /* Distance depuis la gauche */
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+    font-size: 24px;
+    color: #333;
+    text-decoration: none;
+}
 
-
+.home-icon:hover {
+    color: #6200ea;
+}
