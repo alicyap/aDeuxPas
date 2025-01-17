@@ -1,15 +1,6 @@
 /* Style général de la page */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
-body {
-    display: flex;
-    flex-direction: row;
-    margin: 0;
-    font-family: 'Poppins', Arial, sans-serif; /* Application de Poppins */
-    background-color: #f4f5f7;
-    color: #333;
-}
-
 /* Style pour l'header avec l'image en fond */
 header{
     position: relative;
@@ -73,7 +64,6 @@ header p {
     gap: 20px;
     padding: 20px;
     margin-top: 20px;
-
 }
 
 .card {
@@ -89,12 +79,11 @@ header p {
     transition: transform 0.3s, box-shadow 0.3s;
     margin : 8px 0;
     padding : 16px;
-
 }
+
 .results-container .card + .card {
     margin-top: 4px; /* Réduit spécifiquement l'espace entre deux cartes consécutives */
 }
-
 
 .card:hover {
     transform: translateY(-5px);
@@ -157,20 +146,6 @@ button:hover {
 }
 
 /* Page map */
-.left-column {
-    flex: 1;
-    padding: 20px;
-    width: 30%;
-    background: #ffffff;
-    border-right: 2px solid #e0e0e0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-}
 
 .dropdown-wrapper, .radio-container {
     width: 100%;
@@ -252,14 +227,14 @@ button:hover {
     color: #6200ea;
 }
 
-.right-column {
+/*.right-column {
     flex: 3;
     padding: 10px;
     width: 70%;
     display: flex;
     flex-direction: column;
     background-color: #f4f5f7;
-}
+}*/
 
 h2 {
     margin: 0 0 20px;
@@ -277,14 +252,14 @@ h1 {
     font-family: 'Poppins', Arial, sans-serif;
 }
 
-#map {
+/*#map {
     flex: 1;
     border-radius: 8px;
     border: 1px solid #ddd;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 80vh;
     margin-bottom: 40px;
-}
+}*/
 
 
 .dropdown-container select:hover,
@@ -434,7 +409,7 @@ body.dark-mode {
         color: #ffffff;
     }
     .right-column {
-        background-color: #09090e;
+        background-color: rgba(41, 36, 36, 0);
         color: #ffffff;
     }
     h2 {
@@ -443,6 +418,19 @@ body.dark-mode {
     .home-icon {
         color: #ffffff;
     }
+    #lieux-container {
+        background-color: rgba(50, 50, 50, 0.6);
+        color: #ffffff;
+    }
+    h3 {
+        color: #ffffff;
+    }
+    #lieux-list li {
+        color: #09090e;
+    }
+    .home-icon:hover {
+    color: #6200ea;
+}
 
     /*Général*/
     background-color: #09090e;
@@ -491,3 +479,75 @@ body.dark-mode {
 .home-icon:hover {
     color: #6200ea;
 }
+
+/* Conteneur principal pour structurer les colonnes */
+body {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #f4f5f7;
+    color: #333;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Colonne gauche */
+.left-column {
+    flex: 1;
+    width: 25%; /* Ajuste la largeur de la colonne gauche */
+    padding: 10px;
+    background: #ffffff;
+    border-right: 2px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* Colonne droite (carte) */
+.right-column {
+    flex: 2;
+    width: 50%; /* Ajuste la largeur de la colonne droite */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f5f7;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+#map {
+    flex: 1;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 80vh; /* Ajuste la hauteur de la carte */
+    margin-bottom: 20px;
+    z-index: 1;
+}
+
+/* Conteneur des lieux affichés */
+#lieux-container {
+    flex: 1;
+    width: 25%; /* Ajuste la largeur de la colonne des lieux */
+    padding: 10px;
+    background: #f9f9f9;
+    border-left: 2px solid #e0e0e0;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+#lieux-list li {
+    margin: 5px 0;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+}
+
+

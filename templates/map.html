@@ -71,6 +71,14 @@
         <h2>Carte des activités à proximité des lignes de métro</h2>
         <div id="map"></div>
     </div>
+    
+    <div id="lieux-container"
+         style="display: none; width: 300px; padding: 10px; border-left: 1px solid #ccc; overflow-y: auto;">
+        <h3>Lieux trouvés : 0</h3>
+        <ul id="lieux-list"></ul>
+        <button id="toggle-lieux">Masquer la liste</button>
+    </div>
+
 
     <script src="{% static 'js/map.js' %}"></script>
 
