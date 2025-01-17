@@ -431,6 +431,9 @@ body.dark-mode {
     h2 {
         color: #ffffff;
     }
+    .home-icon {
+        color: #ffffff;
+    }
 
     /*Général*/
     background-color: #09090e;
@@ -465,9 +468,9 @@ body.dark-mode {
 }
 
 .home-icon {
-    position: absolute; /* Pour positionner l'icône précisément */
-    top: 10px; /* Distance depuis le haut */
-    left: 10px; /* Distance depuis la gauche */
+    position: absolute;
+    top: 10px;
+    left: 10px;
     display: block;
     text-align: center;
     margin: 10px 0;

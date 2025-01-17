@@ -58,43 +58,87 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    function updateMap() {
+        const lineId = lineFilter.value;
+        const stationName = stationFilter.value;
+        const activityType = activityFilter.value;
+        const proximity = getSelectedProximity();
 
- function updateMap() {
-    const lineId = lineFilter.value;
-    const stationName = stationFilter.value;
-    const activityType = activityFilter.value;
-    const proximity = getSelectedProximity();
+        const url = `/line/${lineId}/?proximity=${proximity}&station_name=${stationName}`;
 
-    const url = `/line/${lineId}/?proximity=${proximity}&station_name=${stationName}`;
+        showLoadingSpinner();
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            map.eachLayer(layer => {
-                if (layer instanceof L.Marker || layer instanceof L.CircleMarker || layer instanceof L.Polyline) {
-                    map.removeLayer(layer);
-                }
-            });
-
-            const latlngs = data.stations.map(station => [station.latitude, station.longitude]);
-            polyline = L.polyline(latlngs, { color: 'blue', weight: 4 }).addTo(map);
-
-
-            data.lieux
-                .filter(lieu => !activityType || lieu.type === activityType) // Filtrer par type d'activité
-                .forEach(lieu => {
-                    const marker = L.circleMarker([lieu.latitude, lieu.longitude], {
-                        color: colors[lieu.type],
-                        opacity: 1,
-                    })
-                        .addTo(map)
-                        .bindPopup(`${lieu.type}: ${lieu.name}`);
-
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                map.eachLayer(layer => {
+                    if (layer instanceof L.Marker || layer instanceof L.CircleMarker || layer instanceof L.Polyline) {
+                        map.removeLayer(layer);
+                    }
                 });
 
-        });
-}
+                // Ajoute les nouvelles lignes
+                const latlngs = data.stations.map(station => [station.latitude, station.longitude]);
+                polyline = L.polyline(latlngs, {color: 'blue', weight: 4}).addTo(map);
 
+                // Ajoute les nouveaux marqueurs
+                data.lieux
+                    .filter(lieu => !activityType || lieu.type === activityType)
+                    .forEach(lieu => {
+                        L.circleMarker([lieu.latitude, lieu.longitude], {
+                            color: colors[lieu.type],
+                            opacity: 1,
+                        })
+                            .addTo(map)
+                            .bindPopup(`${lieu.type}: ${lieu.name}`);
+                    });
+            })
+            .catch(error => {
+                console.error("Erreur lors de la mise à jour de la carte : ", error);
+            })
+            .finally(() => {
+                hideLoadingSpinner();
+            });
+    }
+
+
+    function showLoadingSpinner() {
+        if (document.getElementById('loading-spinner')) {
+            return;
+        }
+
+        const spinner = document.createElement('div');
+        spinner.id = 'loading-spinner';
+        spinner.style.position = 'fixed';
+        spinner.style.top = '50%';
+        spinner.style.left = '50%';
+        spinner.style.transform = 'translate(-50%, -50%)';
+        spinner.style.zIndex = '9999';
+        spinner.style.width = '50px';
+        spinner.style.height = '50px';
+        spinner.style.border = '5px solid rgba(0, 0, 0, 0.2)';
+        spinner.style.borderTop = '5px solid #3498db';
+        spinner.style.borderRadius = '50%';
+        spinner.style.animation = 'spin 1s linear infinite';
+
+        const style = document.createElement('style');
+        style.innerHTML = `
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    `;
+        document.head.appendChild(style);
+
+        document.body.appendChild(spinner);
+    }
+
+    function hideLoadingSpinner() {
+        const spinner = document.getElementById('loading-spinner');
+        if (spinner) {
+            spinner.remove();
+        }
+    }
 
 
 // Mettre à jour la carte lorsque les filtres changent
@@ -103,9 +147,14 @@ document.addEventListener('DOMContentLoaded', function () {
         fetchStations(lineId);
         updateMap();
     });
-    stationFilter.addEventListener('change', updateMap);
-    activityFilter.addEventListener('change', updateMap);
-    proximityRadios.forEach(radio => radio.addEventListener('change', updateMap));
+    stationFilter.addEventListener('change', () => {
+        updateMap();
+    });
+    activityFilter.addEventListener('change', () => {
+        updateMap();
+    });
+    proximityRadios.forEach(radio => radio.addEventListener('change', () => {
+        updateMap();
+    }));
 
 });
-;
