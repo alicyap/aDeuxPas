@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', function () {
         maxZoom: 18,
     }).addTo(map);
 
+    //Activite par défaut selon le clic
+    const urlParams = new URLSearchParams(window.location.search);
+    const activityType = urlParams.get('activity');
+    if (activityType) {
+        const activityFilter = document.getElementById('activity-filter');
+        activityFilter.value = activityType;
+    }
 
     const lineFilter = document.getElementById('line-filter');
     const stationFilter = document.getElementById('station-filter');

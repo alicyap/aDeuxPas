@@ -27,7 +27,7 @@ urlpatterns = [
     path('line/<int:line_id>/', views.get_line_data, name='line_data'),
     path('get-lines/', views.get_lines, name='get_lines'),
     path('line/<str:line_id>/stations/', views.get_line_stations, name='line_stations'),
-    path('restaurants/', views.restaurants, name='restaurants'),
-    path('get-restaurant-data/', views.get_restaurant_data, name='get_restaurant_data')
+    # path('restaurants/', views.restaurants, name='restaurants'),
+    # path('get-restaurant-data/', views.get_restaurant_data, name='get_restaurant_data')
 
 ]

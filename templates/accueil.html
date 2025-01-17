@@ -22,35 +22,34 @@
         </div>
     </header>
 
-
-
-
+    <div class = "results-container">
             <section class="activity-cards">
-            <a href="{% url 'restaurants' %}" class="card" style="background-image: url('/static/images/restaurant.jpeg');">
+            <a href="{% url 'map_view' %}?activity=Restaurant" class="card" style="background-image: url('/static/images/restaurant.jpeg');">
                 <div class="hover-text">
                     <p>Découvrez les Restaurants</p>
                     <span>→</span>
                 </div>
             </a>
-            <div class="card" style="background-image: url('/static/images/biblio.jpeg');">
+            <a href="{% url 'map_view' %}?activity=Bibliothèque" class="card" style="background-image: url('/static/images/biblio.jpeg');">
                 <div class="hover-text">
                     <p>Découvrez les Bibliothèques</p>
                     <span>→</span>
                 </div>
-            </div>
-            <div class="card" style="background-image: url('/static/images/parcs.jpeg');">
+            </a>
+            <a href="{% url 'map_view' %}?activity=Parc" class="card" style="background-image: url('/static/images/parcs.jpeg');">
                 <div class="hover-text">
                     <p>Découvrez les Parcs</p>
                     <span>→</span>
                 </div>
-            </div>
-            <div class="card" style="background-image: url('/static/images/coworking.jpeg');">
+            </a>
+            <a href="{% url 'map_view' %}?activity=Coworking"class="card" style="background-image: url('/static/images/coworking.jpeg');">
                 <div class="hover-text">
                     <p>Découvrez les Espaces de Coworking</p>
                     <span>→</span>
                 </div>
-            </div>
+            </a>
         </section>
+    </div>
     <footer>
         © 2025 aDeuxPas - Tous droits réservés
     </footer>
