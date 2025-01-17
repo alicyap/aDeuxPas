@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Titre de la page{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    
+    
+    {% block content %}
+    <!-- Contenu spécifique à chaque page -->
+    {% endblock %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleButton = document.getElementById('toggle-dark-mode');
+
+            // Charger le choix de l'utilisateur depuis le localStorage
+            const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                toggleButton.textContent = 'Désactiver le mode sombre';
+            }
+
+            // Ajouter un événement pour basculer le mode
+            toggleButton.addEventListener('click', function () {
+                document.body.classList.toggle('dark-mode');
+
+                const darkModeEnabled = document.body.classList.contains('dark-mode');
+                toggleButton.textContent = darkModeEnabled ? 'Désactiver le mode sombre' : 'Activer le mode sombre';
+
+                // Sauvegarder le choix dans le localStorage
+                localStorage.setItem('dark-mode', darkModeEnabled);
+            });
+        });
+    </script>
+<button class="toggle-dark-mode" id="toggle-dark-mode">Activer le mode sombre</button>
+</body>
+</html>

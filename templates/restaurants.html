@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+
+{% block title %}Restaurants - A Deux Pas{% endblock %}
+{% block content %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurants - A Deux Pas</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+
+
+
+</head>
+<body>
+
+ 
+
+
+    <div class="r-column">
+            <h1>Explorez les restaurants à proximité des lignes de métro de Paris</h1>
+            <img src="/static/images/restaurant.jpeg" alt="Restaurants" height="500" width="100%"  >
+    </div>
+    <div class="main-container">
+        <div class="left-preview">
+            <a href="/map/">
+                <div class="map-preview">
+                    <h3>Aperçu de la carte</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="filters">
+            <div class="dropdown-container">
+                <select id="restaurant-type-filter">
+                    <option value="" selected disabled>Type de restaurant</option>
+                </select>
+            </div>
+
+            <div class="dropdown-container">
+                <select id="line-filter">
+                    <option value="" selected disabled>Métro</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="results-container">
+            <h2>Liste des restaurants</h2>
+            <ul id="restaurant-list">
+                <!-- Les restaurants seront ajoutés ici dynamiquement -->
+            </ul>
+        </div>
+    </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const typeFilter = document.getElementById('restaurant-type-filter');
+        const lineFilter = document.getElementById('line-filter');
+        const restaurantList = document.getElementById('restaurant-list');
+
+        function loadFilters() {
+            fetch('/get-restaurant-data/')
+                .then(response => response.json())
+                .then(data => {
+                    // Charger les types de restaurants
+                    data.restaurants = data.restaurants.filter(restaurant => restaurant.type !== '');
+                    data.restaurant_types = [...new Set(data.restaurants.map(restaurant => restaurant.type))];
+                    data.restaurant_types.forEach(type => {
+                        const option = document.createElement('option');
+                        option.value = type;
+                        option.textContent = type;
+                        typeFilter.appendChild(option);
+                    });
+
+                    // Charger les lignes de métro
+                     fetch('/get-lines/')
+                    .then(response => response.json())
+                    .then(data => {
+                        data.lines.forEach(line => {
+                            const option = document.createElement('option');
+                            option.value = line.replace('Ligne ', ''); // On stocke uniquement le numéro dans la valeur
+                            option.textContent = line;// Texte affiché dans le menu
+                            lineFilter.appendChild(option);
+                        });
+                    });
+                });
+        }
+
+        function updateResults() {
+            const type = typeFilter.value;
+            const lineId = lineFilter.value;
+
+            fetch(`/get-restaurant-data/?line=${lineId}&type=${type}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Vider la liste des résultats
+                    restaurantList.innerHTML = '';
+
+                    // Ajouter chaque restaurant à la liste
+                    data.restaurants.forEach(restaurant => {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'restaurant-item';
+                        listItem.innerHTML = `
+                            <h3>${restaurant.name}</h3>
+                            <p>${restaurant.address}</p>
+                            <p>Type: ${restaurant.type}</p>
+                        `;
+                        restaurantList.appendChild(listItem);
+                    });
+                });
+        }
+
+        typeFilter.addEventListener('change', updateResults);
+        lineFilter.addEventListener('change', updateResults);
+
+        loadFilters();
+    });
+</script>
+
+<footer>
+    © 2025 aDeuxPas - Tous droits réservés
+</footer>
+</body>
+{% endblock %}
+</html>

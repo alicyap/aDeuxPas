@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+{% extends 'base.html' %}
+
+{% block title %}aDeuxPas - Accueil{% endblock %}
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,12 +26,12 @@
 
 
             <section class="activity-cards">
-            <div class="card" style="background-image: url('/static/images/restaurant.jpeg');">
+            <a href="{% url 'restaurants' %}" class="card" style="background-image: url('/static/images/restaurant.jpeg');">
                 <div class="hover-text">
                     <p>Découvrez les Restaurants</p>
                     <span>→</span>
                 </div>
-            </div>
+            </a>
             <div class="card" style="background-image: url('/static/images/biblio.jpeg');">
                 <div class="hover-text">
                     <p>Découvrez les Bibliothèques</p>
@@ -57,4 +61,5 @@
         }
     </script>{% endcomment %}
 </body>
+{% endblock %}
 </html>
