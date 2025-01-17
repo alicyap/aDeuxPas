@@ -77,11 +77,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
 
-                // Ajoute les nouvelles lignes
                 const latlngs = data.stations.map(station => [station.latitude, station.longitude]);
                 polyline = L.polyline(latlngs, {color: 'blue', weight: 4}).addTo(map);
 
-                // Ajoute les nouveaux marqueurs
                 data.lieux
                     .filter(lieu => !activityType || lieu.type === activityType)
                     .forEach(lieu => {
@@ -90,11 +88,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             opacity: 1,
                         })
                             .addTo(map)
-                            .bindPopup(`${lieu.type}: ${lieu.name}`);
+                            .bindPopup(`${lieu.type} : ${lieu.name}<br>Site : ${lieu.web}`);
                     });
-            })
-            .catch(error => {
-                console.error("Erreur lors de la mise à jour de la carte : ", error);
+
             })
             .finally(() => {
                 hideLoadingSpinner();

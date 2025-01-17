@@ -23,11 +23,60 @@ def get_lines(request):
     return JsonResponse({"lines": [f"Ligne {line}" for line in lines]})
 
 
-def get_line_data(request, line_id):
+# def get_line_data(request, line_id):
+#
+#     proximity = request.GET.get('proximity', '500m')  # Valeur par défaut = 500m
+#     distance_limit = int(proximity.replace('m', '')) / 1000 # Convertit en kilomètres
+#     station_name = request.GET.get('station_name')  # Récupére le nom de la station filtrée
+#
+#     stations = Metro.objects.filter(libelle_line=line_id)
+#
+#     lieux_data = {
+#         "Bibliothèque": Bibliotheques.objects.all(),
+#         "Coworking": Coworking.objects.all(),
+#         "Parc": Parcs.objects.all(),
+#         "Restaurant": Resto.objects.filter(Q(type="Restaurant") | Q(type="Fast Food") | Q(type="Food Court")).all(),
+#     }
+#
+#     result = {"stations": [], "lieux": []}
+#
+#     for station in stations:
+#         lat, lon = parse_coordinates(station.point_geo)
+#         if lat is None or lon is None:
+#             continue
+#
+#         result["stations"].append({
+#             "name": station.libelle_station,
+#             "latitude": lat,
+#             "longitude": lon,
+#         })
+#
+#         if station_name and station.libelle_station != station_name:
+#             continue  # Si la station ne correspond à la station choisie, on passe
+#
+#         for lieu_type, lieux_queryset in lieux_data.items():
+#             for lieu in lieux_queryset:
+#                 lieu_lat, lieu_lon = parse_coordinates(
+#                     getattr(lieu, 'coordonnees_geo', None)
+#                 )
+#                 if lieu_lat is None or lieu_lon is None:
+#                     continue
+#
+#                 distance = haversine(lat, lon, lieu_lat, lieu_lon)
+#                 if distance <= distance_limit:
+#                     result["lieux"].append({
+#                         "type": lieu_type,
+#                         "name": lieu.nom,
+#                         "latitude": lieu_lat,
+#                         "longitude": lieu_lon,
+#                     })
+#
+#     return JsonResponse(result)
 
+def get_line_data(request, line_id):
     proximity = request.GET.get('proximity', '500m')  # Valeur par défaut = 500m
-    distance_limit = int(proximity.replace('m', '')) / 1000 # Convertit en kilomètres
-    station_name = request.GET.get('station_name')  # Récupére le nom de la station filtrée
+    distance_limit = int(proximity.replace('m', '')) / 1000  # Convertit en kilomètres
+    station_name = request.GET.get('station_name')  # Récupère le nom de la station filtrée
 
     stations = Metro.objects.filter(libelle_line=line_id)
 
@@ -56,22 +105,27 @@ def get_line_data(request, line_id):
 
         for lieu_type, lieux_queryset in lieux_data.items():
             for lieu in lieux_queryset:
-                lieu_lat, lieu_lon = parse_coordinates(
-                    getattr(lieu, 'coordonnees_geo', None)
-                )
+                lieu_lat, lieu_lon = parse_coordinates(getattr(lieu, 'coordonnees_geo', None))
                 if lieu_lat is None or lieu_lon is None:
                     continue
 
                 distance = haversine(lat, lon, lieu_lat, lieu_lon)
                 if distance <= distance_limit:
-                    result["lieux"].append({
+                    lieu_info = {
                         "type": lieu_type,
                         "name": lieu.nom,
                         "latitude": lieu_lat,
                         "longitude": lieu_lon,
-                    })
+                    }
+
+                    # Ajouter le site web si disponible
+                    if hasattr(lieu, 'web') and lieu.web:
+                        lieu_info["web"] = lieu.web
+
+                    result["lieux"].append(lieu_info)
 
     return JsonResponse(result)
+
 
 def restaurants(request):
     return render(request, 'restaurants.html')

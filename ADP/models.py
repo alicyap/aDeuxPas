@@ -12,7 +12,7 @@ class Bibliotheques(models.Model):
     heures_d_ouverture = models.TextField(db_column='Heures d ouverture', blank=True, null=True)
     fermeture_annuelle = models.TextField(db_column='Fermeture annuelle', blank=True, null=True)
     conditions_d_acces = models.TextField(db_column='Conditions d acces', blank=True, null=True)
-    site_web = models.TextField(db_column='Site web', blank=True, null=True)
+    web = models.TextField(db_column='Site web', blank=True, null=True)
     telephone = models.TextField(db_column='Telephone', blank=True, null=True)
 
     def __str__(self):
@@ -85,7 +85,7 @@ class Resto(models.Model):
     heures_ouverture = models.TextField(db_column='Heures_ouverture', blank=True, null=True)
     acces_handicapes = models.TextField(db_column='Acces_Handicapes', blank=True, null=True)
     telephone = models.TextField(db_column='Telephone', blank=True, null=True)
-    site_web = models.TextField(db_column='Site_Web', blank=True, null=True)
+    web = models.TextField(db_column='Site_Web', blank=True, null=True)
     commune = models.TextField(db_column='Commune', blank=True, null=True)
     code_commune = models.IntegerField(db_column='Code_Commune', blank=True, null=True)
     departement = models.TextField(db_column='Departement', blank=True, null=True)
