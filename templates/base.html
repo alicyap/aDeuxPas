@@ -10,34 +10,38 @@
 </head>
 <body>
 
-
     {% block content %}
     <!-- Contenu spécifique à chaque page -->
     {% endblock %}
 
+    <div class="toggle-button">
+        <input type="checkbox" id="dark-mode-toggle" />
+        <label for="dark-mode-toggle">
+            <span class="toggle-icon sun">☀️</span>
+            <span class="toggle-icon moon">🌙</span>
+            <span class="toggle-ball"></span>
+        </label>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const toggleButton = document.getElementById('toggle-dark-mode');
-
+            const toggleCheckbox = document.getElementById('dark-mode-toggle');
+            const sunIcon = document.querySelector('.icon.sun');
+            const moonIcon = document.querySelector('.icon.moon');
             // Charger le choix de l'utilisateur depuis le localStorage
             const isDarkMode = localStorage.getItem('dark-mode') === 'true';
             if (isDarkMode) {
                 document.body.classList.add('dark-mode');
-                toggleButton.textContent = 'Désactiver le mode sombre';
+                toggleCheckbox.checked = true;
             }
-
-            // Ajouter un événement pour basculer le mode
-            toggleButton.addEventListener('click', function () {
+            
+            toggleCheckbox.addEventListener('change', function () {
                 document.body.classList.toggle('dark-mode');
 
                 const darkModeEnabled = document.body.classList.contains('dark-mode');
-                toggleButton.textContent = darkModeEnabled ? 'Désactiver le mode sombre' : 'Activer le mode sombre';
-
-                // Sauvegarder le choix dans le localStorage
                 localStorage.setItem('dark-mode', darkModeEnabled);
             });
         });
     </script>
-<button class="toggle-dark-mode" id="toggle-dark-mode">Activer le mode sombre</button>
 </body>
 </html>

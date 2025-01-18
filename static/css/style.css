@@ -444,3 +444,77 @@ body {
 #activity-filter option[value="Coworking"] {
     color: #b216f1;
 }
+
+/* Barre horizontale pour le mode sombre */
+.toggle-button {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: 60px;
+    height: 30px;
+    background-color: #251c1c;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.toggle-button label {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.toggle-icon {
+    font-size: 16px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.toggle-icon.sun {
+    left: 10px;
+    color: #f39c12;
+}
+
+.toggle-icon.moon {
+    right: 10px;
+    color: #9b59b6;
+}
+
+.toggle-ball {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 26px;
+    height: 26px;
+    background-color: #b6bfca;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Cacher l'input checkbox */
+#dark-mode-toggle {
+    display: none;
+}
+
+/* Activer/désactiver le mode sombre */
+#dark-mode-toggle:checked + label .toggle-ball {
+    transform: translateX(30px);
+}
+
+#dark-mode-toggle:checked + label .sun {
+    opacity: 1;
+}
+
+#dark-mode-toggle:checked + label .moon {
+    opacity: 1;
+}
