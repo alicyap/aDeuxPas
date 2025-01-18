@@ -268,6 +268,11 @@ body.dark-mode {
     #lieux-list li {
         color: #09090e;
     }
+    #lieux-list li:hover {
+        background-color: rgba(98, 0, 234, 0.73);
+        color: #ffffff;
+        transform: scale(1.02);
+    }
     .home-icon:hover {
     color: #6200ea;
 }
@@ -383,6 +388,12 @@ body {
     order: 2; /* Affiché en deuxième */
 }
 
+#lieux-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
 #lieux-list li {
     margin: 5px 0;
     padding: 8px;
@@ -411,4 +422,25 @@ body {
     font-size: 24px;
     cursor: pointer;
     margin-left: 10px;
+}
+
+#activity-filter option {
+    display: flex;
+    align-items: center;
+}
+
+#activity-filter option[value="Restaurant"] {
+    color: #fda839;
+}
+
+#activity-filter option[value="Bibliothèque"] {
+    color: #020e93;
+}
+
+#activity-filter option[value="Parc"] {
+    color: #24fb04;
+}
+
+#activity-filter option[value="Coworking"] {
+    color: #b216f1;
 }

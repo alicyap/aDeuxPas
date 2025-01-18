@@ -164,30 +164,31 @@ document.addEventListener('DOMContentLoaded', function () {
         const iconMinus = document.getElementById('icon-minus');
         const toggleText = document.getElementById('toggle-text');
 
+        const typeIcons = {
+            "Bibliothèque": "📚",
+            "Coworking": "💼",
+            "Parc": "🌳",
+            "Restaurant": "🍴"
+        };
+
         lieuxList.innerHTML = '';
 
         if (lieux.length > 0) {
             lieuxContainer.style.display = 'block';
 
-            // Utilisation de Set pour garantir l'unicité des lieux
-            const uniqueLieux = [...new Set(lieux.map(lieu => `${lieu.type} : ${lieu.name}, Site : ${lieu.web || ''}`))];
+            lieuxCount.textContent = `Lieux trouvés : ${lieux.length}`;
 
-            lieuxCount.textContent = `Lieux trouvés : ${uniqueLieux.length}`;
-
-            uniqueLieux.forEach(lieu => {
+            lieux.forEach(lieu => {
                 const li = document.createElement('li');
-                const [typeName, site] = lieu.split(', Site : ');
+                const icon = typeIcons[lieu.type] || '';
+                li.innerHTML = `${icon} <strong>${lieu.type} :</strong> ${lieu.name}`;
 
-                if (site && site.trim() !== '') {
-                    li.innerHTML = `${typeName}<br>Site : <a href="${site}" target="_blank">${site}</a>`;
-                } else {
-                    li.innerHTML = `${typeName}`; // Si pas de site, on affiche juste le type et le nom
+                if (lieu.web) {
+                    li.innerHTML += `<br><strong>Site :</strong> <a href="${lieu.web}" target="_blank">${lieu.web}</a>`;
                 }
 
-                // Ajouter un événement de clic pour "simuler" le clic sur le marqueur
-                const lieuData = lieux.find(l => `${l.type} : ${l.name}, Site : ${l.web || ''}` === lieu);
                 li.addEventListener('click', function () {
-                    const marker = markers[lieuData.name];
+                    const marker = markers[lieu.name];
                     if (marker) {
                         map.setView(marker.getLatLng(), 20);
                         marker.openPopup();
@@ -202,7 +203,6 @@ document.addEventListener('DOMContentLoaded', function () {
             toggleText.textContent = 'Masquer les lieux';
         } else {
             lieuxContainer.style.display = 'none';
-
             lieuxCount.textContent = `Aucun lieu trouvé`;
             iconPlus.style.display = 'inline';
             iconMinus.style.display = 'none';
