@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
     const map = L.map('map').setView([48.8566, 2.3522], 12); // Paris
-    const markers = [];
     let polyline = null;
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -65,6 +64,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    let markers = {}; // Dictionnaire pour stocker les marqueurs par lieu
+
     function updateMap() {
         const lineId = lineFilter.value;
         const stationName = stationFilter.value;
@@ -90,6 +91,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 const lieux = data.lieux.filter(lieu => !activityType || lieu.type === activityType);
                 updateLieuxList(lieux);
 
+                // Effacer les marqueurs précédents
+                markers = {};
+
                 lieux.forEach(lieu => {
                     let popupContent = `${lieu.type} : ${lieu.name}`;
 
@@ -97,12 +101,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         popupContent += `<br>Site : <a href="${lieu.web}" target="_blank">${lieu.web}</a>`;
                     }
 
-                    L.circleMarker([lieu.latitude, lieu.longitude], {
+                    // Créer un marqueur
+                    const marker = L.circleMarker([lieu.latitude, lieu.longitude], {
                         color: colors[lieu.type],
                         opacity: 1,
                     })
                         .addTo(map)
                         .bindPopup(popupContent); // Utilisation du contenu conditionnel
+
+                    // Stocker le marqueur dans le dictionnaire avec l'identifiant unique du lieu
+                    markers[lieu.name] = marker;
                 });
             })
             .finally(() => {
@@ -151,7 +159,11 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateLieuxList(lieux) {
         const lieuxContainer = document.getElementById('lieux-container');
         const lieuxList = document.getElementById('lieux-list');
-        const lieuxCount = lieuxContainer.querySelector('h3'); // Référence au titre du nombre de lieux
+        const lieuxCount = lieuxContainer.querySelector('h3');
+        const iconPlus = document.getElementById('icon-plus');
+        const iconMinus = document.getElementById('icon-minus');
+        const toggleText = document.getElementById('toggle-text');
+
         lieuxList.innerHTML = '';
 
         if (lieux.length > 0) {
@@ -164,32 +176,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
             uniqueLieux.forEach(lieu => {
                 const li = document.createElement('li');
-
-                // Séparer le texte pour l'ajout de <br> manuellement
                 const [typeName, site] = lieu.split(', Site : ');
 
-                // Si un site existe, l'ajouter au HTML, sinon ne pas l'afficher
                 if (site && site.trim() !== '') {
                     li.innerHTML = `${typeName}<br>Site : <a href="${site}" target="_blank">${site}</a>`;
                 } else {
                     li.innerHTML = `${typeName}`; // Si pas de site, on affiche juste le type et le nom
                 }
 
+                // Ajouter un événement de clic pour "simuler" le clic sur le marqueur
+                const lieuData = lieux.find(l => `${l.type} : ${l.name}, Site : ${l.web || ''}` === lieu);
+                li.addEventListener('click', function () {
+                    const marker = markers[lieuData.name];
+                    if (marker) {
+                        map.setView(marker.getLatLng(), 20);
+                        marker.openPopup();
+                    }
+                });
+
                 lieuxList.appendChild(li);
             });
+
+            iconPlus.style.display = 'none';
+            iconMinus.style.display = 'inline';
+            toggleText.textContent = 'Masquer les lieux';
         } else {
-            lieuxContainer.style.display = 'none'; // Masque la colonne si aucun lieu
+            lieuxContainer.style.display = 'none';
+
+            lieuxCount.textContent = `Aucun lieu trouvé`;
+            iconPlus.style.display = 'inline';
+            iconMinus.style.display = 'none';
+            toggleText.textContent = 'Afficher les lieux';
         }
     }
 
 
-    document.getElementById('toggle-lieux').addEventListener('click', () => {
-        const lieuxContainer = document.getElementById('lieux-container');
-        if (lieuxContainer.style.display === 'block') {
-            lieuxContainer.style.display = 'none';
-        } else {
-            lieuxContainer.style.display = 'block';
-        }
+    document.getElementById('icon-plus').addEventListener('click', function () {
+        document.getElementById('lieux-container').style.display = 'block';
+        document.getElementById('icon-plus').style.display = 'none';
+        document.getElementById('icon-minus').style.display = 'inline';
+        document.getElementById('toggle-text').textContent = 'Masquer les lieux';
+    });
+
+    document.getElementById('icon-minus').addEventListener('click', function () {
+        document.getElementById('lieux-container').style.display = 'none';
+        document.getElementById('icon-minus').style.display = 'none';
+        document.getElementById('icon-plus').style.display = 'inline';
+        document.getElementById('toggle-text').textContent = 'Afficher les lieux';
     });
 
 

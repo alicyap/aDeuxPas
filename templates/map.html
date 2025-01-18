@@ -16,9 +16,16 @@
     </head>
     <body>
     <div class="left-column">
-        <a href="{% url 'accueil' %}" class="home-icon">
-            <i class="fas fa-home"></i>
-        </a>
+        <div class="icons">
+            <a href="{% url 'accueil' %}" class="home-icon">
+                <i class="fas fa-home"></i>
+            </a>
+            <div class="toggle-icons">
+                <i id="icon-plus" class="fas fa-plus"></i>
+                <span id="toggle-text">Afficher les lieux</span>
+                <i id="icon-minus" class="fas fa-minus" style="display: none;"></i>
+            </div>
+        </div>
 
         <div class="dropdown-wrapper">
             <div class="dropdown-container">
@@ -71,12 +78,11 @@
         <h2>Carte des activités à proximité des lignes de métro</h2>
         <div id="map"></div>
     </div>
-    
+
     <div id="lieux-container"
          style="display: none; width: 300px; padding: 10px; border-left: 1px solid #ccc; overflow-y: auto;">
         <h3>Lieux trouvés : 0</h3>
         <ul id="lieux-list"></ul>
-        <button id="toggle-lieux">Masquer la liste</button>
     </div>
 
 
