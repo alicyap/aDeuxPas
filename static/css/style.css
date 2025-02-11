@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
 /* Style pour l'header avec l'image en fond */
-header{
+header {
     position: relative;
     width: 100%;
     height: 100vh;
@@ -77,8 +77,8 @@ header p {
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s, box-shadow 0.3s;
-    margin : 8px 0;
-    padding : 16px;
+    margin: 8px 0;
+    padding: 16px;
 }
 
 .results-container .card + .card {
@@ -211,7 +211,7 @@ h2 {
 h1 {
     margin: 0 0 20px;
     font-size: 26px;
-    color:  #6eca97;
+    color: #6eca97;
     text-align: center;
     font-family: 'Poppins', Arial, sans-serif;
 }
@@ -234,7 +234,7 @@ footer {
     z-index: 2;
 }
 
-h3{
+h3 {
     text-align: center;
     margin: 20px 30px;
     font-size: 24px;
@@ -244,38 +244,47 @@ h3{
 /* Mode sombre */
 body.dark-mode {
     /*Page map*/
+
     .left-column {
         background-color: rgba(50, 50, 50, 0.6);
         color: #ffffff;
     }
+
     .right-column {
         background-color: rgba(41, 36, 36, 0);
         color: #ffffff;
     }
+
     h2 {
         color: #ffffff;
     }
+
     .home-icon {
         color: #ffffff;
     }
+
     #lieux-container {
         background-color: rgba(50, 50, 50, 0.6);
         color: #ffffff;
     }
+
     h3 {
         color: #ffffff;
     }
+
     #lieux-list li {
         color: #09090e;
     }
+
     #lieux-list li:hover {
         background-color: rgba(98, 0, 234, 0.73);
         color: #ffffff;
         transform: scale(1.02);
     }
+
     .home-icon:hover {
-    color: #6200ea;
-}
+        color: #6200ea;
+    }
 
     /*Général*/
     background-color: #09090e;
@@ -299,6 +308,7 @@ body.dark-mode {
 .toggle-dark-mode:hover {
     background-color: #0056b3;
 }
+
 .dark-mode-toggle {
     margin-top: 10px;
 }
@@ -574,6 +584,7 @@ body {
         align-items: center;
         width: 100%;
         padding: 0 5%;
+        margin-bottom: 60px ;
     }
 
     .card {
@@ -587,11 +598,11 @@ body {
         border-radius: 10px;
     }
 
-      .right-column h2 {
+    .right-column h2 {
         display: none;
     }
 
-    .left-column, .right-column, #lieux-container {
+    .left-column, .right-column {
         width: 100%;
         padding: 5%;
         display: block;
@@ -599,19 +610,43 @@ body {
         margin: 0 auto;
     }
 
+    #lieux-container {
+        border-left: none;
+        border-right: none;
+        border-top: 2px solid #e0e0e0;
+        width: 100% !important;
+        padding: 0;
+        margin: 0;
+        display: block;
+        max-height: 300px;
+        overflow-x: hidden;
+        border-bottom: 4px solid #e0e0e0;
+    }
+
+
     .left-column {
         border-right: none;
         border-bottom: 2px solid #e0e0e0;
     }
 
-    #lieux-container {
-        border-left: none;
-        border-top: 2px solid #e0e0e0;
-        max-height: 300px;
-    }
-
     #map {
         width: 100%;
         height: 50vh;
+    }
+
+    .hover-text {
+        opacity: 1;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: white;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 10px;
+    }
+
+    .card:hover .hover-text {
+        opacity: 1; /* S'assure que ça reste visible même sur hover */
     }
 }
