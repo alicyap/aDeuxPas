@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-kbs4vci(i0rt-#6k5h50_5_lvl42k3=_rd^*f=(v0u=dm09q9w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['alicyapearl.alwaysdata.net', '127.0.0.1', 'localhost']
 
 
 # Application definition

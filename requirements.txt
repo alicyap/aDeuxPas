@@ -40,3 +40,4 @@ tornado==6.4.2
 truststore==0.10.0
 urllib3_secure_extra==0.1.0
 xmlrpclib==1.0.1
+Django~=5.1.3

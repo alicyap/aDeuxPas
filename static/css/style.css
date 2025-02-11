@@ -518,3 +518,93 @@ body {
 #dark-mode-toggle:checked + label .moon {
     opacity: 1;
 }
+
+
+@media screen and (max-width: 767px) {
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+    }
+
+    header {
+        background-image: url('/static/images/metro.jpeg');
+        background-size: cover;
+        background-position: center;
+        height: 50vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .header-content {
+        width: 90%;
+        max-width: 100%;
+        padding: 5%;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+        margin: 0 auto;
+    }
+
+    header h1 {
+        font-size: 8vw;
+        margin: 0;
+    }
+
+    header p {
+        font-size: 4vw;
+        margin-top: 5%;
+    }
+
+    .activity-cards {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0 5%;
+    }
+
+    .card {
+        width: 90%;
+        max-width: 100%;
+        height: auto;
+        min-height: 150px;
+        margin: 5% 0;
+        background-size: cover;
+        background-position: center;
+        border-radius: 10px;
+    }
+
+    .left-column, .right-column, #lieux-container {
+        width: 100%;
+        padding: 5%;
+        display: block;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .left-column {
+        border-right: none;
+        border-bottom: 2px solid #e0e0e0;
+    }
+
+    #lieux-container {
+        border-left: none;
+        border-top: 2px solid #e0e0e0;
+    }
+
+    #map {
+        width: 100%;
+        height: 50vh;
+    }
+}
